@@ -10,7 +10,6 @@ import { SharedModule } from 'app/shared/shared.module';
   ],
   imports: [
     SharedModule,
-    SettingsModule,
     EmptyLayoutModule,
     ClassicLayoutModule
   ],
