@@ -1,0 +1,30 @@
+name: Build Github Page
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Prepare
+        run: |
+          [[ -d dist ]] || mkdir dist
+          mv dist docs
+      - name: Configure
+        run: |
+          git config --global user.name "Ethereal"
+          git config --global user.email "ethereal97@gmail.com"
+      - name: Publish
+        run: |
+          git checkout --orphan gh-pages
+          git add .
+          git commit -m "Commited to Github Page"
+          git push origin gh-pages --force
