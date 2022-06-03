@@ -14,16 +14,19 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
-      - name: Prepare
-        run: |
-          [[ -d dist ]] || mkdir dist
-          mv dist docs
-      - name: Configure
+      - name: Configure Git
         run: |
           git config --global user.name "Ethereal"
           git config --global user.email "ethereal97@gmail.com"
-      - name: Publish
+      - name: Release Version
         run: |
+          node bin/release.js
+          git add .
+          git commit -m "Released version $(cat src/version)"
+          git push origin master
+      - name: Github Page
+        run: |
+          mv dist docs
           git checkout --orphan gh-pages
           git add .
           git commit -m "Commited to Github Page"
