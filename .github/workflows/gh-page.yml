@@ -20,7 +20,7 @@ jobs:
           git config --global user.email "ethereal97@gmail.com"
       - name: Release Version
         run: |
-          node bin/release.js
+          node bin/release-version.js
           git add .
           git commit -m "Released version $(cat src/version)"
           git push origin master
